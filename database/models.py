@@ -24,7 +24,7 @@ class members(models.Model):
     job = models.CharField(max_length=128)
     image = models.ImageField(upload_to='member_photo')
 
-class member_film():
+class member_film(models.Model):
     id_info = models.ForeignKey(to = members, on_delete= models.CASCADE)
     id_film = models.ForeignKey(to = films, on_delete= models.CASCADE)
     role = models.CharField(max_length=128)
@@ -65,3 +65,9 @@ class genre(models.Model):
 class genre_film(models.Model):
     id_genre = models.ForeignKey(to = genre, on_delete= models.CASCADE)
     id_films = models.ForeignKey(to = films, on_delete= models.CASCADE)
+
+class rating(models.Model):
+    id_author= models.ForeignKey(to= user, on_delete= models.CASCADE)
+    id_content = models.ForeignKey(to = comments, on_delete= models.CASCADE)
+    rating = models.DecimalField(max_digits=6, decimal_places= 2)
+    context = models.CharField(max_length=128)

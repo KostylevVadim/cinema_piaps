@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'database',
-    'blog'
+    'blog',
+    'films',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -148,6 +150,7 @@ INTERNAL_IPS = [
     # ...
 
 ]
+# memcached, redis
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',

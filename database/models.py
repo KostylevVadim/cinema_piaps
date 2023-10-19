@@ -51,7 +51,7 @@ class articles(models.Model):
 class comments(models.Model):
     text = models.TextField()
     date = models.DateField()
-    author = models.ForeignKey(to = user, on_delete = models.CASCADE)
+    id_author = models.ForeignKey(to = user, on_delete = models.CASCADE)
     
     
     

@@ -20,18 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from blog.views import IndexView
-import debug_toolbar
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name = 'index'),
-    # path("__debug__/", include("debug_toolbar.urls"))
 ]
 
 if settings.DEBUG:
     import debug_toolbar
-    print(settings.DEBUG)
-    # import mimetypes
-    # mimetypes.add_type("application/javascript", ".js", True)
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
     ]
+    print(urlpatterns)

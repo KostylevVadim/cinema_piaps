@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib import admin
+import datetime
+from django.utils.timezone import now
 # Create your models here.
 
 class films(models.Model):
     title = models.CharField(max_length=128, unique= True)
-    path = models.CharField(max_length=128, unique = True)
+    path = models.FileField(upload_to='cinema')
     rating = models.DecimalField(max_digits=6, decimal_places= 2)
     
 
@@ -41,8 +43,8 @@ class favorites(models.Model):
 
 class articles(models.Model):
     id_author = models.ForeignKey(to = user, on_delete= models.CASCADE)
-    path = models.CharField(max_length= 128)
-    date = models.DateField()
+    path = models.FileField(upload_to='articles')
+    date = models.DateField(default=now)
     title = models.CharField(max_length= 128)
 
 

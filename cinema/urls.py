@@ -28,6 +28,7 @@ login_forbidden =  user_passes_test(lambda u: u.is_anonymous, '/')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name = 'index'),
+    path('films/', include('films.urls', namespace='films'))
     path('login/', login_forbidden(ex_views.login_view), name='login'),
     path('logout/', ex_views.logout_view, name='logout'),
     path('signup/', login_forbidden(ex_views.signup), name='signup'),

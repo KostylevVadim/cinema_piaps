@@ -5,7 +5,7 @@ from django.utils.timezone import now
 # Create your models here.
 
 class films(models.Model):
-    title = models.CharField(max_length=128, unique= True)
+    title = models.CharField(primary_key=True, max_length=128, unique= True)
     path = models.FileField(upload_to='cinema')
     rating = models.DecimalField(max_digits=6, decimal_places= 2)
     
@@ -14,6 +14,7 @@ class info(models.Model):
     surname = models.CharField(max_length=128, null= True)
     name = models.CharField(max_length=128, null= True)
     patronimic = models.CharField(max_length= 128, null = True)
+    age = models.IntegerField(null = False, default= 0)
 
 class user(AbstractUser):
     id_info = models.ForeignKey(to = info, on_delete= models.CASCADE, null= True)
@@ -61,10 +62,11 @@ class prev_next_comm(models.Model):
 
 class genre(models.Model):
     name = models.CharField(max_length= 128)
+    films = models.ManyToManyField(films)
 
-class genre_film(models.Model):
-    id_genre = models.ForeignKey(to = genre, on_delete= models.CASCADE)
-    id_films = models.ForeignKey(to = films, on_delete= models.CASCADE)
+# class genre_film(models.Model):
+#     id_genre = models.ForeignKey(to = genre, on_delete= models.CASCADE)
+#     id_films = models.ForeignKey(to = films, on_delete= models.CASCADE)
 
 class rating(models.Model):
     id_author= models.ForeignKey(to= user, on_delete= models.CASCADE)

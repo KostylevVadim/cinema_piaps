@@ -1,5 +1,5 @@
 from django.contrib import admin
-from database.models import films, user, genre, info
+from database.models import films, user, genre, info, articles
 # Register your models here.
 
 @admin.register(films)
@@ -11,6 +11,9 @@ class useradmin(admin.ModelAdmin):
     model= user
     fields = ['username', 'role']
 
+@admin.register(articles)
+class articlessadmin(admin.ModelAdmin):
+    list_display = ['title']
 # @admin.register(info)
 # class infoadmin(admin.ModelAdmin):
 #     model = info

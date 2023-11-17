@@ -171,14 +171,15 @@
 
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <img class="mb-4" src="{% static 'assets/brand/emblema.jpg' %}" alt="" width="72" height="57">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      
+      <a href="{% url 'index'%}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <img class="mb-4" src="{% static 'assets/brand/emblema.jpg' %}" alt="" width="72" height="57">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
       </a>
   
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="#" class="nav-link">Блог</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Кинотеатр</a></li>
+        <li class="nav-item"><a href="{% url 'films:films' %}" class="nav-link">Кинотеатр</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
       </ul>
     </header>

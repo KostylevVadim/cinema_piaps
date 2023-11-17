@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from films.forms import Commentform
 from django.shortcuts import render,HttpResponse
 import datetime
+
+list_to_save_dict ={}
 @login_required
 def film(request):
     dict_of_post = {}
@@ -15,16 +17,21 @@ def film(request):
     lst = []
     name = ''
     key_list = list()
+    
     if request.method == 'POST':
+        list_to_save_dict.clear()
         dict_of_post = dict(request._post)
         print(dict_of_post)
         for key, value in dict_of_post.items():
+            print(value[0])
             if value[0] == 'on':
                 lst.append(key)
+                list_to_save_dict[key]= ''
+            
             if key == 'name':
                 name += value[0] 
         
-        
+    # print(list_to_save_dict)
     film_list = []
     if name != '':
         name = '%'+ name + '%'
@@ -51,17 +58,32 @@ def film(request):
                 
                 film_list.append((e['id'],e['title'], e['path'], e['rating']))
     if request.method != 'POST':
-        film_list_tmp = films.objects.raw('SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films')
-        for elem in film_list_tmp:
-                e =elem.__dict__
+        print(list_to_save_dict)
+        s = ''
+        for key, value in list_to_save_dict.items():
+            s+=key
+        
+            film_list_tmp = films.objects.raw('SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films INNER JOIN database_genre_films ON database_genre_films.films_id = database_films.id INNER JOIN database_genre ON database_genre.id = database_genre_films.genre_id WHERE database_genre.name = %s', [key,])
+            for elem in film_list_tmp:
+                    e =elem.__dict__
                 
-                film_list.append((e['id'],e['title'], e['path'], e['rating']))
+                    film_list.append((e['id'],e['title'], e['path'], e['rating']))
 
     
     
     genre_list = genre.objects.all()
-    
+    genre_list_new = []
 
+    # print(list_to_save_dict)
+    for elem in genre_list:
+        # print(elem.__dict__['name'])
+        if elem.__dict__['name'] in list_to_save_dict:
+            # print(elem.__dict__['name'], '')
+            genre_list_new.append((elem.__dict__['name'], 'checked'))
+        else:
+            # print(elem.__dict__['name'], 'disabled')
+            genre_list_new.append((elem.__dict__['name'], ''))
+    print(genre_list_new)
     paginator = Paginator(film_list, 3)
     # print(paginator.count, ' ',paginator.num_pages)
     page_number = request.GET.get('page')
@@ -69,11 +91,13 @@ def film(request):
     context = {
         'title':'Кинотеатр',
         'films': film_list,
-        'genre': genre_list,
+        'genre': genre_list_new,
         'page_obj': page_obj
         
     }
     return render(request,'films/films.html', context)
+
+
 
 @login_required
 def film_id(request, film_id):

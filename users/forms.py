@@ -34,3 +34,16 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = user
         fields = ('name', 'surname', 'patronimic', 'username', 'email', 'password1', 'password2')
+
+
+class UpdateUserForm(forms.Form):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(max_length=200, help_text='Required')
+    surname = forms.CharField(max_length=200, help_text='Required')
+    name = forms.CharField(max_length=200, help_text='Required')
+    patronimic = forms.CharField(max_length=200, help_text='Required')
+    
+
+    class Meta:
+        model = user
+        fields = ('username', 'email', 'surname', 'name', 'patronymic')

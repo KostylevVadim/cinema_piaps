@@ -4,7 +4,7 @@ from .forms import UserLoginForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
+from .forms import SignupForm, UpdateUserForm, UpdateProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -16,8 +16,9 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import auth, messages
+from django.core.paginator import Paginator
 
-from database.models import user, info
+from database.models import user, info, films
 
 
 def login_not_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
@@ -34,6 +35,15 @@ def login_not_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, l
         return actual_decorator(function)
     return actual_decorator
 
+def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
+    actual_decorator = user_passes_test(
+        lambda u: u.is_authenticated,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
 
 @login_not_required(login_url='/')
 def login_view(request):
@@ -80,3 +90,42 @@ def signup(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+@login_required(login_url="/")
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'tempalte/profile.html', {'user_form': user_form})
+
+
+@login_required(login_url="/")
+def favourite_films(request):
+    if request.method == 'DELETE':
+        films.objects.raw('''DELETE FROM favourite WHERE film_id = %s AND user_id=%s''', request.film.id, request.user.id)
+    
+    film_list_tmp = films.objects.raw('''SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films
+                                      INNER JOIN favourites ON favourites.film_id=database_films.id  WHERE user_id=%s''', request.user.id)
+    film_list = []
+    for elem in film_list_tmp:
+        e =elem.__dict__
+
+        film_list.append((e['id'],e['title'], e['path'], e['rating']))
+
+    paginator = Paginator(film_list, 3)
+    print(paginator.count, ' ',paginator.num_pages)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'title':'Кинотеатр',
+        'films': film_list,
+        'page_obj': page_obj
+    }
+    return render(request,'template/favourite_films.html', context)

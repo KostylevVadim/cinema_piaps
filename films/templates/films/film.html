@@ -1,16 +1,46 @@
+<!DOCTYPE html>
 
-{{path}}
-
-<h4>{{ title }}</h4>
-<video
-
-id="my-video"
-class="video-js"
-controls
-preload="auto"
-width="1000"
-height="800"
-data-setup="{}"
-> 
-<source src="{{path}}"  type="video/mp4"/>
-</video>
+<html>
+    <head>
+        <title>{{title}}</title>
+    </head>
+    
+    <body>
+      <video controls src = "{{path}}" mimeType = "video/mp4" ></video>
+        
+      
+        
+        <form action="" method="post">
+          {% csrf_token %} 
+          <p>
+            <label for="name">Введите название:</label>
+            <input type="text" name="text_com" id="text_com">
+          </p>
+          <p>
+            <label for="ra">Введите рейтинг:</label>
+            <input type="number" name="ra" id="ra" required>
+          </p>
+          <p>
+            <label for="id">Введите id:</label>
+            <input type="number" name="id_com" id="id_com">
+          </p>
+          
+          <button type="submit">Отправить</button>
+        </form>
+        <form action="" method="post">
+          {% csrf_token %} 
+          <button type="submit" name = "tofavourite">Добавить в любимые</button>
+          
+        </form>
+        {%for g in comment_list%}
+        <h5>
+          {{g.0}}
+        {{g.1}}
+        {{g.2}}
+        </h5>
+        
+        
+        
+        {%endfor%}
+    </body>
+</html>

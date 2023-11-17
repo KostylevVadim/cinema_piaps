@@ -1,17 +1,23 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic.list import ListView
-from database.models import films, genre, member_film, info, comments, prev_next_comm, favorites, history, rating
+from database.models import films, genre, member_film, info, comments, prev_next_comm, favorites, history, rating, prev_next_comm, user, rating
 from django.core.paginator import Paginator
-from django.db import connection
-    
+from django.contrib.auth.decorators import login_required
+from films.forms import Commentform
+from django.shortcuts import render,HttpResponse
+import datetime
+@login_required
 def film(request):
     dict_of_post = {}
+    # if()
     lst = []
     name = ''
+    key_list = list()
     if request.method == 'POST':
         dict_of_post = dict(request._post)
-        # print(dict_of_post)
+        print(dict_of_post)
         for key, value in dict_of_post.items():
             if value[0] == 'on':
                 lst.append(key)
@@ -57,7 +63,7 @@ def film(request):
     
 
     paginator = Paginator(film_list, 3)
-    print(paginator.count, ' ',paginator.num_pages)
+    # print(paginator.count, ' ',paginator.num_pages)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -69,23 +75,103 @@ def film(request):
     }
     return render(request,'films/films.html', context)
 
+@login_required
 def film_id(request, film_id):
+    x = user.objects.filter(username = str(request.user))
+    id = 1
+    for elem in x:
+        e =elem.__dict__
+        id =e['id']
+    print(id)
+    id_u = id
+    fave = favorites.objects.filter(id_user_id = id)
+    # print(fave)
+    
+    # if request.user.is_authenticated == False:
+    #     return redirect('/')
     films_list = films.objects.raw('SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films WHERE database_films.id = %s', [film_id,])
     genre = []
+    
     film_list_x = []
     for elem in films_list:
         e =elem.__dict__
         film_list_x.append((e['id'],e['title'], e['path'], e['rating']))
+    id = film_list_x[0][0]
     title = film_list_x[0][1]
     path = film_list_x[0][2]
-    rating = film_list_x[0][3]
+    rate = film_list_x[0][3]
+    fl = 0
+    if request.method == 'GET':
+        h = history(date = datetime.datetime.now(),title = title, id_film_id = id, id_user_id = id_u)
+        h.save()
+    for elem in fave:
+        print(elem.__dict__)
+        if elem.__dict__['id_film_id'] == id:
+            fl = 1
     
+    # print(request.__dict__)
+    # # print(request.user, request.user.is_authenticated)
+    # print(request.user.__dict__['_wrapped'] == 'GOGa')
+    rates_list = rating.objects.raw('SELECT 1 as id, id_content_id, rating, text from database_rating INNER JOIN database_comments on database_rating.id_content_id = database_comments.id WHERE context=%s AND id_of_art_film = %s',['film', id])
+    rate_l =[]
+    
+    for elem in rates_list:
+        e =elem.__dict__
+        rate_l.append((e['id_content_id'], e['text'], e['rating']))
     context = {
+        'id': id, 
         'title':title,
-        'path': path,
-        'rating': rating
+        'path': '../../media/'+path,
+        'rating': rate,
+        'comment_list':rate_l
+        
         
     }
     if request.method == 'POST':
-        print('post')
+        dict_of_get = request.__dict__
+        dict_of_post = dict(request._post)
+        print(dict_of_post)
+        form = Commentform(request.POST)
+        # print(request.user, user.objects.filter(username = ))
+        # c = comments.objects.create(text = dict_of_post['com'][0], )
+        context['form']= form
+        k = list(request._post.keys())
+
+        # x = request._post['text_com']
+        print('text_com' in k)
+        if 'tofavourite' in k:
+            if fl == 0:
+                f = favorites(title = title, id_film_id = id, id_user_id = id_u)
+                f.save()
+        
+        if 'text_com' in k:
+            # print(request._post, str(request.user))
+            x = user.objects.filter(username = str(request.user))
+            id = 1
+            for elem in x:
+                e =elem.__dict__
+                id =e['id']
+            s = request._post['text_com']
+            # print(request._post['text_com'])
+            if 'id_com' in k:
+                s += ' Ответный комментарий на '+ str(request._post['id_com'])
+                
+
+            com = comments(text = s, id_author_id = id)
+            
+            # print(com)
+            com.save()
+            if 'id_com' in k:
+                con = prev_next_comm(id_child_id = com.id, id_parent_id = request._post['id_com'])
+                con.save()
+            rat = rating(id_author_id = id, id_of_art_film = context['id'], id_content_id = com.id, rating = request._post['ra'], context = 'film')
+            rat.save()
+            
+
+            
+            
+    
+    
     return render(request,'films/film.html', context)
+
+

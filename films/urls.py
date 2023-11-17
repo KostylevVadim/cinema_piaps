@@ -8,6 +8,7 @@ from films.views import film, film_id
 app_name = 'films'
 urlpatterns = [
     path('', film, name = 'films'),
-    path('films/<int:film_id>', film_id, name = 'film')
+    path('film/<int:film_id>', film_id, name = 'film'),
+    # path('stream/<int:id>/',get_streaming_video, name='stream'),
 
 ]

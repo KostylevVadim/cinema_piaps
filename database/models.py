@@ -51,7 +51,7 @@ class articles(models.Model):
 
 class comments(models.Model):
     text = models.TextField()
-    date = models.DateField()
+    date = models.DateField(default=now)
     id_author = models.ForeignKey(to = user, on_delete = models.CASCADE)
     
     
@@ -71,5 +71,6 @@ class genre(models.Model):
 class rating(models.Model):
     id_author= models.ForeignKey(to= user, on_delete= models.CASCADE)
     id_content = models.ForeignKey(to = comments, on_delete= models.CASCADE)
+    id_of_art_film = models.IntegerField()
     rating = models.DecimalField(max_digits=6, decimal_places= 2)
     context = models.CharField(max_length=128)

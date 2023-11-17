@@ -179,8 +179,20 @@
   
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="#" class="nav-link">Блог</a></li>
+       
+
+        {%if request.user.is_authenticated%}
         <li class="nav-item"><a href="{% url 'films:films' %}" class="nav-link">Кинотеатр</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
+        
+        {%endif %}
+        
+        {%if request.user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Войти</a></li>
+        <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link">Регистрация</a></li>
+        {%endif %}
       </ul>
     </header>
   </div>

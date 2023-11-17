@@ -6,16 +6,16 @@ from database.models import films, user, genre, info
 class filmsadmin(admin.ModelAdmin):
     list_display = ['title']
 
-
-class useradmin(admin.TabularInline):
+@admin.register(user)
+class useradmin(admin.ModelAdmin):
     model= user
-    fields = ['username']
+    fields = ['username', 'role']
 
-@admin.register(info)
-class infoadmin(admin.ModelAdmin):
-    model = info
-    list_display = ['name', 'surname']
-    inlines = [useradmin,]
+# @admin.register(info)
+# class infoadmin(admin.ModelAdmin):
+#     model = info
+#     list_display = ['name', 'surname']
+#     inlines = [useradmin,]
 
 @admin.register(genre)
 class classgenre(admin.ModelAdmin):

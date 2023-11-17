@@ -58,7 +58,8 @@ def film(request):
                 
                 film_list.append((e['id'],e['title'], e['path'], e['rating']))
     if request.method != 'POST':
-        print(list_to_save_dict)
+        # print(list_to_save_dict)
+        
         s = ''
         for key, value in list_to_save_dict.items():
             s+=key
@@ -136,18 +137,13 @@ def film_id(request, film_id):
     # print(request.__dict__)
     # # print(request.user, request.user.is_authenticated)
     # print(request.user.__dict__['_wrapped'] == 'GOGa')
-    rates_list = rating.objects.raw('SELECT 1 as id, id_content_id, rating, text from database_rating INNER JOIN database_comments on database_rating.id_content_id = database_comments.id WHERE context=%s AND id_of_art_film = %s',['film', id])
-    rate_l =[]
     
-    for elem in rates_list:
-        e =elem.__dict__
-        rate_l.append((e['id_content_id'], e['text'], e['rating']))
     context = {
         'id': id, 
         'title':title,
         'path': '../../media/'+path,
-        'rating': rate,
-        'comment_list':rate_l
+        'rating': rate
+        
         
         
     }
@@ -162,7 +158,7 @@ def film_id(request, film_id):
         k = list(request._post.keys())
 
         # x = request._post['text_com']
-        print('text_com' in k)
+        print(k,'text_com' in k)
         if 'tofavourite' in k:
             if fl == 0:
                 f = favorites(title = title, id_film_id = id, id_user_id = id_u)
@@ -176,9 +172,12 @@ def film_id(request, film_id):
                 e =elem.__dict__
                 id =e['id']
             s = request._post['text_com']
-            # print(request._post['text_com'])
+            print(request._post['text_com'])
             if 'id_com' in k:
-                s += ' Ответный комментарий на '+ str(request._post['id_com'])
+                x = str(request._post['id_com'])
+                print(str(request._post['id_com']))
+                if x!= '':
+                    s += ' Ответный комментарий на '+ str(request._post['id_com'])
                 
 
             com = comments(text = s, id_author_id = id)
@@ -186,15 +185,24 @@ def film_id(request, film_id):
             # print(com)
             com.save()
             if 'id_com' in k:
-                con = prev_next_comm(id_child_id = com.id, id_parent_id = request._post['id_com'])
-                con.save()
+                x = str(request._post['id_com'])
+                if x != '':
+                    con = prev_next_comm(id_child_id = com.id, id_parent_id = request._post['id_com'])
+                    con.save()
             rat = rating(id_author_id = id, id_of_art_film = context['id'], id_content_id = com.id, rating = request._post['ra'], context = 'film')
             rat.save()
+    id = film_list_x[0][0]
+    rates_list = rating.objects.raw('SELECT 1 as id, id_content_id, rating, text from database_rating INNER JOIN database_comments on database_rating.id_content_id = database_comments.id WHERE context=%s AND id_of_art_film = %s',['film', id])
+    rate_l =[]
+    
+    for elem in rates_list:
+        e =elem.__dict__
+        rate_l.append((e['id_content_id'], e['text'], e['rating']))
             
 
             
-            
-    
+    print(rate_l)        
+    context['comment_list'] = rate_l
     
     return render(request,'films/film.html', context)
 

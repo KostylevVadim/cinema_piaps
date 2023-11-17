@@ -1,14 +1,13 @@
-{%load static%}
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="{% static 'assets/js/color-modes.js' %}"></script>
+  <head><script src="../assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Фильмы</title>
+    <title>Blog Template · Bootstrap v5.3</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
@@ -16,7 +15,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="{%static 'assets/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -169,88 +168,103 @@
   </symbol>
 </svg>
 
+<!--<div class="container">
+  <header class="border-bottom lh-1 py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="link-secondary" href="#">Subscribe</a>
+      </div>
+      <div class="col-4 text-center">
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Large</a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="link-secondary" href="#" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+        </a>
+        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-scroller py-1 mb-3 border-bottom">
+    <nav class="nav nav-underline justify-content-between">
+      <a class="nav-item nav-link link-body-emphasis active" href="#">World</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Technology</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Business</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Style</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
+    </nav>
+  </div>
+</div>-->
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <img class="mb-4" src="{% static 'assets/brand/emblema.jpg' %}" alt="" width="72" height="57">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-      
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link">Блог</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
-      </ul>
-    </header>
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <img class="mb-4" src="../assets/brand/emblema.jpg" alt="" width="72" height="57">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+    </a>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Кинотеатр</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
+    </ul>
+  </header>
 </div>
 
 <main class="container">
-    <div class="row">
-        <div class="col-md-8">
-          <form action = "" method="post">
-            {% csrf_token %}    
-            {%for g in genre%}
-            <!-- {{g.name}} -->
-            <p>
-                <input type="checkbox" checked name="{{g.name}}"/>{{g.name}}
-            </p>
-            
-            {%endfor%}
-            <p>
-                <button type="submit">Отправить</button>
-            </p>
-        </div>
-        <div class="col-md-4">
-          <form action="" method="post">
-            <p>
-              <label for="name">Введите название:</label>
-              <input type="text" name="name" id="name">
-            </p>
-            
-            <button type="submit" name = "tofavourite">Отправить</button>
-          </form>
-        </div>
+  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="col-lg-6 px-0">
+      <h1 class="display-4 fst-italic">Топовый пост</h1>
+      <p class="lead my-3">Как-то раз американец, немец и русский зашли в бар...</p>
+      <p class="lead mb-0"><a href="https://anekdotovstreet.com/nacionalnosti/russkie-nemcy-amerikancy/?ysclid=lp1dj99fg302511137" class="text-body-emphasis fw-bold">Продолжить чтение</a></p>
     </div>
-    <div class="row">
-        <!-- <svg class="bd-placeholder-img" width="200" height="1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"> -->
-          <!-- <title>Placeholder</title> -->
-          {% for film in page_obj %}
-        <h2>
-            
-            <li>
-                <a class="dropdown-item" href="{%url 'films:film' film.0%}">{{film.1}}</a>
-            </li>
-        </h2>
-        {% endfor %}
-          <!-- <rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">
-            Окно для отражения списка найденных фильмов</text> -->
-        </svg>
-        
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary-emphasis">Раздел/жанр</strong>
+          <h3 class="mb-0">Статья 1</h3>
+          <div class="mb-1 text-body-secondary">15 ноября</div>
+          <p class="card-text mb-auto">описание ла-ла-ла</p>
+          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+            продолжить чтение
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Картинка</text></svg>
+        </div>
       </div>
-      <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
     </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success-emphasis">Раздел/жанр</strong>
+          <h3 class="mb-0">Статья 2</h3>
+          <div class="mb-1 text-body-secondary">16 ноября</div>
+          <p class="mb-auto">описание бла-бла-бла</p>
+          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+            продолжить чтение
+            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+          </a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Картинка</text></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
 </main>
 
-<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-  <p class="mb-0">
-    <a href="#">Вернуться наверх страницы</a>
-  </p>
-</footer>
-<script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
-
-    </body>
+</body>
 </html>

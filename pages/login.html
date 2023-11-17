@@ -1,26 +1,25 @@
-{%load static%}
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="{% static 'assets/js/color-modes.js' %}"></script>
+  <head><script src="../assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="author" content="Gaponenko">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Фильмы</title>
+    <title>authorization</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
     
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="{%static 'assets/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
-        font-size: 1.125rem;
+        font-size: 5rem;
         text-anchor: middle;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -99,13 +98,11 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="blog.css" rel="stylesheet">
+    <link href="sign-in.css" rel="stylesheet">
   </head>
-  <body>
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="check2" viewBox="0 0 16 16">
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 64 64">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
       </symbol>
       <symbol id="circle-half" viewBox="0 0 16 16">
@@ -156,101 +153,33 @@
     </div>
 
     
-<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-  <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
-  </symbol>
-  <symbol id="cart" viewBox="0 0 16 16">
-    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-  <symbol id="chevron-right" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-  </symbol>
-</svg>
+<main class="form-signin m-auto">
+  <div class="py-5 text-center">
+    <form>
+      <img class="mb-4" src="../assets/brand/emblema.jpg" alt="" width="72" height="57">
+      <h1 class="py-5 text-center">Авторизация</h1>
 
-<div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <img class="mb-4" src="{% static 'assets/brand/emblema.jpg' %}" alt="" width="72" height="57">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-      
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link">Блог</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
-      </ul>
-    </header>
-</div>
-
-<main class="container">
-    <div class="row">
-        <div class="col-md-8">
-          <form action = "" method="post">
-            {% csrf_token %}    
-            {%for g in genre%}
-            <!-- {{g.name}} -->
-            <p>
-                <input type="checkbox" checked name="{{g.name}}"/>{{g.name}}
-            </p>
-            
-            {%endfor%}
-            <p>
-                <button type="submit">Отправить</button>
-            </p>
-        </div>
-        <div class="col-md-4">
-          <form action="" method="post">
-            <p>
-              <label for="name">Введите название:</label>
-              <input type="text" name="name" id="name">
-            </p>
-            
-            <button type="submit" name = "tofavourite">Отправить</button>
-          </form>
-        </div>
-    </div>
-    <div class="row">
-        <!-- <svg class="bd-placeholder-img" width="200" height="1000" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"> -->
-          <!-- <title>Placeholder</title> -->
-          {% for film in page_obj %}
-        <h2>
-            
-            <li>
-                <a class="dropdown-item" href="{%url 'films:film' film.0%}">{{film.1}}</a>
-            </li>
-        </h2>
-        {% endfor %}
-          <!-- <rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">
-            Окно для отражения списка найденных фильмов</text> -->
-        </svg>
-        
+     <div class="form-floating">
+       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">почтовый адрес</label>
       </div>
-      <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-</main>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">пароль</label>
+     </div>
 
-<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-  <p class="mb-0">
-    <a href="#">Вернуться наверх страницы</a>
-  </p>
-</footer>
-<script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+      <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          запомнить
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">войти</button>
+      <button class="btn btn-outline-secondary w-100 py-2" type="button">регистрация</button>
+    </form>
+  </div>
+</main>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

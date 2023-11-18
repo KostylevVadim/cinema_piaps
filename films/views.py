@@ -102,12 +102,13 @@ def film(request):
 
 @login_required
 def film_id(request, film_id):
+    # print(request.user.__dict__['_wrapped'].__dict__)
     x = user.objects.filter(username = str(request.user))
     id = 1
     for elem in x:
         e =elem.__dict__
         id =e['id']
-    print(id)
+    # print(id)
     id_u = id
     fave = favorites.objects.filter(id_user_id = id)
     # print(fave)
@@ -116,7 +117,13 @@ def film_id(request, film_id):
     #     return redirect('/')
     films_list = films.objects.raw('SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films WHERE database_films.id = %s', [film_id,])
     genre = []
-    
+    print(len(films_list))
+    if len(films_list) ==0:
+        context={
+            'text' : 'Такого фильма не существует в списке',
+
+        }
+        return render(request,'films/fail.html', context)
     film_list_x = []
     for elem in films_list:
         e =elem.__dict__

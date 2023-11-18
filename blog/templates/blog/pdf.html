@@ -1,0 +1,12 @@
+{% extends 'blog/default.html'%}
+{% block title %}
+Блог - pdf
+
+{% endblock %}
+
+{% block content %}
+<img src="{%url 'pdf_view' %}"><br/>
+{{ date}} {{pdf}} {{title}}
+
+
+{% endblock %}

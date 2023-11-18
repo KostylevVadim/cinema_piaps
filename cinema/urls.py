@@ -32,6 +32,7 @@ urlpatterns = [
     path('login/', login_forbidden(ex_views.login_view), name='login'),
     path('logout/', ex_views.logout_view, name='logout'),
     path('signup/', login_forbidden(ex_views.signup), name='signup'),
+    path("blog/", include("blog.urls",namespace='blog')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

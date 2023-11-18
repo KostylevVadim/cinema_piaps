@@ -117,7 +117,7 @@ def film_id(request, film_id):
     #     return redirect('/')
     films_list = films.objects.raw('SELECT database_films.id as id,database_films.title, database_films.path, database_films.rating FROM database_films WHERE database_films.id = %s', [film_id,])
     genre = []
-    print(len(films_list))
+    # print(len(films_list))
     if len(films_list) ==0:
         context={
             'text' : 'Такого фильма не существует в списке',

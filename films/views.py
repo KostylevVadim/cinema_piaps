@@ -120,6 +120,7 @@ def film_id(request, film_id):
     # print(len(films_list))
     if len(films_list) ==0:
         context={
+            'title': 'Ошибка',
             'text' : 'Такого фильма не существует в списке',
 
         }

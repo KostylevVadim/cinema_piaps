@@ -1,10 +1,24 @@
+from typing import Any
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from database.models import articles
 # Create your views here.
 
 class IndexView(TemplateView):
     template_name = 'blog/index.html'
-    title = 'Store'
+    title = 'Онлайн-Кинотеатр'
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        d = super().get_context_data(**kwargs)
+        d['title'] = self.title
+        x = articles.objects.raw('SELECT * FROM database_articles ORDER BY id DESC LIMIT 3')
+        # x = x.__dict__
+        lst = []
+        for elem in x:
+            print(elem.__dict__)
+            lst.append((elem.__dict__['id'], elem.__dict__['title'], elem.__dict__['date']))
+        print(lst)
+        d['aritcles'] = lst
+        return d
     
 from django.core.paginator import Paginator
 from django.shortcuts import render

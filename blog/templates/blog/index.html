@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Gaponenko">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Онлайн-Кинотеатр</title>
+    <title>{{title}}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
@@ -200,7 +200,7 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-6 px-0">
-      <h1 class="display-4 fst-italic">Популярное кино</h1>
+      <h1 class="display-4 fst-italic">Реклама кинофильма</h1>
       <p class="lead my-3">Здесь должен проигрываться трейлер</p>
     </div>
   </div>
@@ -215,38 +215,23 @@
         <div>
           <h4 class="fst-italic">Недавние посты</h4>
           <ul class="list-unstyled">
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Example blog post title</h6>
-                  <small class="text-body-secondary">January 15, 2023</small>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">This is another blog post title</h6>
-                  <small class="text-body-secondary">January 14, 2023</small>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
-                  <small class="text-body-secondary">January 13, 2023</small>
-                </div>
-              </a>
-            </li>
-          </ul>
+          {%for elem in aritcles%}
+          <li>
+            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="{%url 'blog:article' elem.0%}">
+              <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
+              <div class="col-lg-8">
+                <h6 class="mb-0">{{elem.1}}</h6>
+                <small class="text-body-secondary">{{elem.2}}</small>
+              </div>
+            </a>
+          </li>
+          {%endfor%}
+        </ul>
+          
         </div>
       </div>
     </div>
-    <div class="col">
+    <!-- <div class="col">
       <div class="position-sticky" style="top: 2rem;">
 
         <div>
@@ -282,11 +267,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- Раздел с новостями-->
-  <h2 class="py-5 text-center">Новости</h2>
+  <!-- <h2 class="py-5 text-center">Новости</h2>
   <div class="row mb-2">
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -322,7 +307,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--создатели-->
   <h2 class="py-5 text-center">Создатели</h2>
   <div>

@@ -43,7 +43,7 @@ def blog(request):
         'page_obj': page_obj
     }
 
-    return render(request, 'index_b.html', context)
+    return render(request, 'blog/index_b.html', context)
 
 
 def article_id(request, article_id):
@@ -57,7 +57,7 @@ def article_id(request, article_id):
             'text': 'Такой новостной статьи не существует',
 
         }
-        return render(request, 'fail.html', context)
+        return render(request, 'blog/fail.html', context)
     article_list_x = []
     for elem in article_list:
         e = elem.__dict__
@@ -114,7 +114,7 @@ def article_id(request, article_id):
 
         context['comment_list'] = rate_l
 
-    return render(request, 'article.html', context)
+    return render(request, 'blog/article.html', context)
 
 def pdf_view(request,article_id):
     article_list = articles.objects.raw(

@@ -30,7 +30,7 @@ def film(request):
             
             if key == 'name':
                 name += value[0] 
-        
+         
     # print(list_to_save_dict)
     film_list = []
     if name != '':
@@ -158,7 +158,7 @@ def film_id(request, film_id):
     if request.method == 'POST':
         dict_of_get = request.__dict__
         dict_of_post = dict(request._post)
-        print(dict_of_post)
+        # print(dict_of_post)
         form = Commentform(request.POST)
         # print(request.user, user.objects.filter(username = ))
         # c = comments.objects.create(text = dict_of_post['com'][0], )
@@ -180,10 +180,10 @@ def film_id(request, film_id):
                 e =elem.__dict__
                 id =e['id']
             s = request._post['text_com']
-            print(request._post['text_com'])
+            # print(request._post['text_com'])
             if 'id_com' in k:
                 x = str(request._post['id_com'])
-                print(str(request._post['id_com']))
+                # print(str(request._post['id_com']))
                 if x!= '':
                     s += ' Ответный комментарий на '+ str(request._post['id_com'])
                 
@@ -202,14 +202,19 @@ def film_id(request, film_id):
     id = film_list_x[0][0]
     rates_list = rating.objects.raw('SELECT 1 as id, id_content_id, rating, text from database_rating INNER JOIN database_comments on database_rating.id_content_id = database_comments.id WHERE context=%s AND id_of_art_film = %s',['film', id])
     rate_l =[]
-    
+    sum = 0
     for elem in rates_list:
         e =elem.__dict__
         rate_l.append((e['id_content_id'], e['text'], e['rating']))
+        sum += float(e['rating']) 
             
-
-            
-    print(rate_l)        
+    n = len(rates_list)
+    if n != 0:
+        n = sum/len(rates_list)
+    # print(n)
+    f = films.objects.filter(title = title).update(rating = n)
+    # print(f.__dict__)
+    # print(rate_l, sum/len(rates_list))        
     context['comment_list'] = rate_l
     
     return render(request,'films/film.html', context)

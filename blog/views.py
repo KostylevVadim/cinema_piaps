@@ -105,8 +105,8 @@ def article_id(request, article_id):
 
     }
     if request.method == 'POST':
-        form = Commentform(request.POST)
-        context['form'] = form
+        # form = Commentform(request.POST)
+        # context['form'] = form
         k = list(request._post.keys())
         if 'text_com' in k:
             x = user.objects.filter(username=str(request.user))
@@ -131,17 +131,24 @@ def article_id(request, article_id):
             rat = rating(id_author_id=id, id_of_art_film=context['id'], id_content_id=com.id, rating=request._post['ra'],
                          context='article')
             rat.save()
-        id = article_list_x[0][0]
-        rates_list = rating.objects.raw(
+    id = article_list_x[0][0]
+    rates_list = rating.objects.raw(
             'SELECT 1 as id, id_content_id, rating, text from database_rating INNER JOIN database_comments on database_rating.id_content_id = database_comments.id WHERE context=%s AND id_of_art_film = %s',
             ['article', id])
-        rate_l = []
+    rate_l = []
 
-        for elem in rates_list:
-            e = elem.__dict__
-            rate_l.append((e['id_content_id'], e['text'], e['rating']))
+    sum = 0
+    for elem in rates_list:
+        e =elem.__dict__
+        rate_l.append((e['id_content_id'], e['text'], e['rating']))
+        sum += float(e['rating']) 
+            
+    n = len(rates_list)
+    if n != 0:
+        n = sum/len(rates_list)
 
-        context['comment_list'] = rate_l
+    context['comment_list'] = rate_l
+    context['rate'] = n
 
     return render(request, 'blog/article.html', context)
 

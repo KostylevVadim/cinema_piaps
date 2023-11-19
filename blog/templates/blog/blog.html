@@ -1,14 +1,13 @@
-{%load static%}
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="{% static 'assets/js/color-modes.js' %}"></script>
+  <head><script src="../assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Gaponenko">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>{{title}}</title>
+    <title>Blog Template · Bootstrap v5.3</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
@@ -16,7 +15,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="{%static 'assets/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -169,109 +168,64 @@
   </symbol>
 </svg>
 
-<div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      
-      <a href="{% url 'index'%}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <img class="mb-4" src="{% static 'assets/brand/emblema.jpg' %}" alt="" width="72" height="57">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-  
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{%url 'blog:articles'%}" class="nav-link">Блог</a></li>
-       
+<!--<div class="container">
+  <header class="border-bottom lh-1 py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <a class="link-secondary" href="#">Subscribe</a>
+      </div>
+      <div class="col-4 text-center">
+        <a class="blog-header-logo text-body-emphasis text-decoration-none" href="#">Large</a>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-center">
+        <a class="link-secondary" href="#" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+        </a>
+        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+      </div>
+    </div>
+  </header>
 
-        {%if request.user.is_authenticated%}
-        <li class="nav-item"><a href="{% url 'films:films' %}" class="nav-link">Кинотеатр</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
-        
-        {%endif %}
-        
-        {%if request.user.is_authenticated%}
-        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
-        {% else %}
-        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Войти</a></li>
-        <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link">Регистрация</a></li>
-        {%endif %}
-      </ul>
-    </header>
+  <div class="nav-scroller py-1 mb-3 border-bottom">
+    <nav class="nav nav-underline justify-content-between">
+      <a class="nav-item nav-link link-body-emphasis active" href="#">World</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">U.S.</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Technology</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Design</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Culture</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Business</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Politics</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Opinion</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Science</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Health</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Style</a>
+      <a class="nav-item nav-link link-body-emphasis" href="#">Travel</a>
+    </nav>
   </div>
+</div>-->
+<div class="container">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <img class="mb-4" src="../assets/brand/emblema.jpg" alt="" width="72" height="57">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+    </a>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Кинотеатр</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">Кабинет</a></li>
+    </ul>
+  </header>
+</div>
 
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
     <div class="col-lg-6 px-0">
-      <h1 class="display-4 fst-italic">Реклама кинофильма</h1>
-      <p class="lead my-3">Здесь должен проигрываться трейлер</p>
+      <h1 class="display-4 fst-italic">Топовый пост</h1>
+      <p class="lead my-3">Как-то раз американец, немец и русский зашли в бар...</p>
+      <p class="lead mb-0"><a href="https://anekdotovstreet.com/nacionalnosti/russkie-nemcy-amerikancy/?ysclid=lp1dj99fg302511137" class="text-body-emphasis fw-bold">Продолжить чтение</a></p>
     </div>
   </div>
-  <div class="row g-5">
 
-  <p></p>  
-  <!-- блоги -->
-  <div class="row">
-    <div class="col">
-      <div class="position-sticky" style="top: 2rem;">
-
-        <div>
-          <h4 class="fst-italic">Недавние посты</h4>
-          <ul class="list-unstyled">
-          {%for elem in aritcles%}
-          <li>
-            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="{%url 'blog:article' elem.0%}">
-              <!-- <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg> -->
-              <div class="col-lg-8">
-                <h6 class="mb-0">{{elem.1}}</h6>
-                <small class="text-body-secondary">{{elem.2}}</small>
-              </div>
-            </a>
-          </li>
-          {%endfor%}
-        </ul>
-          
-        </div>
-      </div>
-    </div>
-    <!-- <div class="col">
-      <div class="position-sticky" style="top: 2rem;">
-
-        <div>
-          <h4 class="fst-italic">Лучшие посты</h4>
-          <ul class="list-unstyled">
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Example blog post title</h6>
-                  <small class="text-body-secondary">January 15, 2023</small>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">This is another blog post title</h6>
-                  <small class="text-body-secondary">January 14, 2023</small>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
-                  <small class="text-body-secondary">January 13, 2023</small>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
-  </div>
-
-  <!-- Раздел с новостями-->
-  <!-- <h2 class="py-5 text-center">Новости</h2>
   <div class="row mb-2">
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -307,76 +261,10 @@
         </div>
       </div>
     </div>
-  </div> -->
-  <!--создатели-->
-  <h2 class="py-5 text-center">Создатели</h2>
-  <div>
-    <div class="bd-example-snippet bd-code-snippet"><div class="bd-example m-0 border-0">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#555" dy=".3em">Вадим</text></svg>
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Главный бос</h5>
-            <p>Просто главный чел</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"/><text x="50%" y="50%" fill="#444" dy=".3em">Александр</text></svg>
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Мемолог всея Руси</h5>
-            <p>100 тубриков, если сможешь найти мем, который не знает Александр</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#555"/><text x="50%" y="50%" fill="#333" dy=".3em">Сергей</text></svg>
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Знаток того, что как-то что-то должно работать</h5>
-            <p>Никто точно не знает того, чего не знает Сергей</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"/><text x="50%" y="50%" fill="#444" dy=".3em">Антон</text></svg>
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Прекрасный представитель рода человеческого</h5>
-            <p>Может и в качалочку за компанию, и в бар</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"/><text x="50%" y="50%" fill="#444" dy=".3em">Андрей</text></svg>
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Просто я</h5>
-            <p>Да-да, просто я</p>
-          </div>
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    </div></div>
   </div>
 
+  
 </main>
-
-<footer class="py-5 text-center text-body-secondary bg-body-tertiary">
-  <p class="mb-0">
-    <a href="#">Вернуться наверх</a>
-  </p>
-</footer>
-<script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
 </html>

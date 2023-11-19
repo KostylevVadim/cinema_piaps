@@ -1,4 +1,4 @@
-{% extends 'blog/default.html'%}
+{% extends 'films/default.html'%}
 {% block title %}
 Блог - {{ title }}
 
@@ -6,12 +6,18 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-<h5>{{date}}</h5>
-<a href="/blog">На Главную </a><br/>
+<h4>Автор: {{author}}</h4>
+<h4>{{date}}</h4>
+<a href="/blog">Обратно к списку </a><br/>
 <a href="{{id}}/content">Текст статьи </a><br/>
-<embed src="{{path}}" width="800px" height="2100px" /><br/>
-{{path}}
-
+ {%for g in comment_list%}
+        <h5>
+          {{g.0}}
+        {{g.1}}
+        {{g.2}}
+        </h5>
+        {%endfor%}
 
 {% endblock %}
+
 

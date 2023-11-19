@@ -1,4 +1,4 @@
-{% extends 'default_b.html'%}
+{% extends 'blog/default_b.html'%}
 
 {% block title %}
 Блог - Главная
@@ -19,17 +19,7 @@
 			</td>
 		</tr>
 	{% endfor %}
-<!--
-<ul>
-{{ objects }}<br/>
-{{ page_obj }}<br/>
-    <br/>Has_previous: {{ page_obj.has_previous }}
-    <br/>Current page: {{ page_obj.number }}
-    <br/>Has_next: {{ page_obj.has_next }}
-    <br/>Number of pages: {{ page_obj.paginator.num_pages }}
 
-</ul>
--->
 {% if page_obj.has_previous %}
 	<a href="?page=1">&laquo First</a>
 	<a href="?page={{ page_obj.previous_page_number }}">Previous</a>

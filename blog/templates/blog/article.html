@@ -1,0 +1,22 @@
+{% extends 'default_b.html'%}
+{% block title %}
+Блог - {{ title }}
+
+{% endblock %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<h4>Автор: {{author}}</h4>
+<h4>{{date}}</h4>
+<a href="/blog">Обратно к списку </a><br/>
+<a href="{{id}}/content">Текст статьи </a><br/>
+ {%for g in comment_list%}
+        <h5>
+          {{g.0}}
+        {{g.1}}
+        {{g.2}}
+        </h5>
+        {%endfor%}
+
+{% endblock %}
+

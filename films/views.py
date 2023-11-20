@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from films.forms import Commentform
 from django.shortcuts import render,HttpResponse
 import datetime
-
+##from films.forms import UploadFilm
 list_to_save_dict ={}
 @login_required
 def film(request):
@@ -219,4 +219,28 @@ def film_id(request, film_id):
     
     return render(request,'films/film.html', context)
 
+
+
+# def upload_film(request):
+#     if request.user.__dict__['wrapped'].__dict__['role'] != 'user':
+#         if request.method == 'POST':
+#             form = UploadFilm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 newdoc = films(path = request.FILES['cinema'])
+#                 newdoc.save()
+
+#             # Redirect to the document list after POST
+#                 return render(
+#                 'templates/films.html',
+#                 {'documents': documents, 'form': form})
+#             else:
+#                 form = UploadFilm() # A empty, unbound form
+
+#         # Load documents for the list page
+#         documents = films.objects.all()
+
+#         # Render list page with the documents and the form
+#     return render(
+#         'templates/films.html',
+#         {'documents': documents, 'form': form})
 

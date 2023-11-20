@@ -1,0 +1,18 @@
+{% extends 'films/default.html'%}
+{% block title %}
+{{ title }}
+
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    <!-- myfile1 - переменная передающееся в Django -->
+    {% for field in form %}
+                  
+                    {{ field }}
+                    
+    {% endfor %}
+    <button type="submit">Загрузка</button>
+  </form>
+{%endblock%}

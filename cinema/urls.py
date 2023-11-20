@@ -22,7 +22,6 @@ from django.urls import path, include
 from blog.views import IndexView
 from django.contrib.auth.decorators import user_passes_test
 from users import views as ex_views
-
 login_forbidden =  user_passes_test(lambda u: u.is_anonymous, '/')
 
 urlpatterns = [
@@ -33,6 +32,10 @@ urlpatterns = [
     path('logout/', ex_views.logout_view, name='logout'),
     path('signup/', login_forbidden(ex_views.signup), name='signup'),
     path("blog/", include("blog.urls",namespace='blog')),
+    path('profile/<int:profile_id>', ex_views.profile, name = 'profile'),
+    path('favourite/', ex_views.favourite_films, name = 'favourite'),
+    path('history/', ex_views.history, name = 'history'),
+    path('add_post/', ex_views.add_post, name = 'post')
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

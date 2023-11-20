@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import auth, messages
 from django.core.paginator import Paginator
 
-from database.models import user, info, films
+from database.models import user, info, films, articles
 
 
 def login_not_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
@@ -100,10 +100,8 @@ def profile(request):
             user_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='users-profile')
-    else:
-        user_form = UpdateUserForm(instance=request.user)
 
-    return render(request, 'tempalte/profile.html', {'user_form': user_form})
+    return render(request, 'template/profile.html', {'user_form': user_form})
 
 
 @login_required(login_url="/")
@@ -129,3 +127,22 @@ def favourite_films(request):
         'page_obj': page_obj
     }
     return render(request,'template/favourite_films.html', context)
+
+@login_required(login_url="/")
+def add_post(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            article = form.save(commit=False)
+            title = form.cleaned_data.get('title')
+            date = date.today()
+            author = request.user.__dict__['wrapped'].__dict__['username']
+            body = form.cleaned_data.get('body')
+            id = articles.objects.create(title=title, body=body, author=author, date=date)
+            id.save()
+            article.id = id
+            article.save()
+        else:
+            form = SignupForm()
+    return render(request, 'template/post.html', {'form': form})
+

@@ -4,7 +4,9 @@ from django.views.generic.list import ListView
 from database.models import films, genre, member_film, info, comments, prev_next_comm, favorites, history, rating
 from django.core.paginator import Paginator
 from django.db import connection
-    
+
+from .forms import UploadFilm
+
 def film(request):
     dict_of_post = {}
     lst = []
@@ -89,3 +91,26 @@ def film_id(request, film_id):
     if request.method == 'POST':
         print('post')
     return render(request,'films/film.html', context)
+
+def upload_film(request):
+    if request.user.__dict__['wrapped'].__dict__['role'] != 'user':
+        if request.method == 'POST':
+            form = UploadFilm(request.POST, request.FILES)
+            if form.is_valid():
+                newdoc = films(path = request.FILES['cinema'])
+                newdoc.save()
+
+            # Redirect to the document list after POST
+                return render(
+                'templates/films.html',
+                {'documents': documents, 'form': form})
+            else:
+                form = UploadFilm() # A empty, unbound form
+
+        # Load documents for the list page
+        documents = films.objects.all()
+
+        # Render list page with the documents and the form
+    return render(
+        'templates/films.html',
+        {'documents': documents, 'form': form})
